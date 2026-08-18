@@ -69,7 +69,7 @@ export type State = {
 
 export const DEFAULT_GOALS: Goals = {
   sonoHoras: 8,
-  exercicioMin: 30,
+  exercicioMin: 50,
   exercicioDias: 4,
   aguaCopos: 8,
   focoMin: 240,
