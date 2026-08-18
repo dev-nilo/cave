@@ -17,6 +17,7 @@ const EMPTY_STATE: State = {
   txs: [],
   wheel: [],
   goals: DEFAULT_GOALS,
+  treinoInicio: null,
 };
 
 let state: State = EMPTY_STATE;
@@ -35,6 +36,7 @@ function load(): State {
       txs: parsed.txs ?? [],
       wheel: parsed.wheel ?? [],
       goals: { ...DEFAULT_GOALS, ...(parsed.goals ?? {}) },
+      treinoInicio: parsed.treinoInicio ?? null,
     };
   } catch {
     return EMPTY_STATE;

@@ -46,6 +46,7 @@ export default function AjustesPage() {
         txs: parsed.txs ?? [],
         wheel: parsed.wheel ?? [],
         goals: { ...DEFAULT_GOALS, ...(parsed.goals ?? {}) },
+        treinoInicio: parsed.treinoInicio ?? null,
       });
       setMsg("Dados importados.");
     } catch {
@@ -55,7 +56,7 @@ export default function AjustesPage() {
 
   function apagarTudo() {
     if (!confirm("Apagar todos os registros? Isto não pode ser desfeito.")) return;
-    replaceState({ version: 1, days: {}, txs: [], wheel: [], goals: DEFAULT_GOALS });
+    replaceState({ version: 1, days: {}, txs: [], wheel: [], goals: DEFAULT_GOALS, treinoInicio: null });
     setMsg("Tudo apagado.");
   }
 

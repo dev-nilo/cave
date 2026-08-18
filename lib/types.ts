@@ -65,6 +65,7 @@ export type State = {
   txs: Tx[];
   wheel: WheelEntry[];
   goals: Goals;
+  treinoInicio: DayId | null;
 };
 
 export const DEFAULT_GOALS: Goals = {
