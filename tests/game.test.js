@@ -7,7 +7,7 @@ const { DEFAULT_GOALS } = require("../.test-build/types.js");
 
 const fullDay = (over = {}) => ({
   sono: { bed: "23:00", wake: "07:00", quality: 5 },
-  exercicio: { minutes: 40, kind: "corrida" },
+  exercicio: { minutes: 60, kind: "corrida" },
   alimentacao: { quality: 5, water: 8, junk: false },
   trabalho: { focus: 300, tasks: 3 },
   leitura: { minutes: 30, book: "b" },
@@ -22,7 +22,7 @@ const fullDay = (over = {}) => ({
 });
 
 function state(days) {
-  return { version: 1, days, txs: [], wheel: [], goals: DEFAULT_GOALS };
+  return { version: 1, days, txs: [], wheel: [], goals: DEFAULT_GOALS, treinoInicio: null };
 }
 
 test("dia cheio rende o teto: 5 pilares + 7 missões + bônus + reflexão", () => {
