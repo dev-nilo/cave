@@ -125,3 +125,13 @@ export function planSessions(start: DayId): PlannedSession[] {
 }
 
 export const SESSION_MINUTES = 50;
+
+/** Sessão planejada para a data, se houver (o plano tem 16 sessões em 4 semanas). */
+export function sessionOn(start: DayId, date: DayId): PlannedSession | null {
+  return planSessions(start).find((p) => p.date === date) ?? null;
+}
+
+/** Primeira sessão planejada depois da data. */
+export function nextSessionAfter(start: DayId, date: DayId): PlannedSession | null {
+  return planSessions(start).find((p) => p.date > date) ?? null;
+}

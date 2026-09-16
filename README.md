@@ -14,7 +14,9 @@ com missões diárias, XP, níveis e conquistas derivados do próprio histórico
 | 7. Wheel of Life | Roda | 8 áreas de 0 a 10, radar e histórico comparativo |
 
 **Diário** abre com humor e intenção da manhã, passa pelos pilares e fecha com
-reflexão, gratidão e destaque da noite. Sete missões por dia (cinco metas de
+reflexão, gratidão e destaque da noite. O treino planejado do dia aparece dentro
+de Exercício (com "marcar feito") e o cardápio do dia dentro de Alimentação;
+`/treino` e `/dieta` são as telas de detalhe, acessadas dali. Sete missões por dia (cinco metas de
 pilar, humor e reflexão) rendem XP; o nível cresce com o acumulado.
 
 **Semana** mostra o mapa de calor 5 pilares × 7 dias (com tabela equivalente),

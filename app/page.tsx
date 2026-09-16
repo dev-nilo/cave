@@ -18,6 +18,8 @@ import {
 } from "@/components/ui";
 import { addDays, brl, formatLong, formatShort, monthId, nf, plural, sleepHours, today } from "@/lib/date";
 import { progress } from "@/lib/game";
+import { SESSION_MINUTES, nextSessionAfter, sessionOn } from "@/lib/plan";
+import { dayTotal, mealsFor } from "@/lib/meals";
 import { PILLARS, monthMoney } from "@/lib/score";
 import { useDay, useMounted, useStore } from "@/lib/store";
 import type { Journal } from "@/lib/types";
@@ -48,6 +50,13 @@ export default function DiarioPage() {
   const isToday = id === today();
   const j = day.journal;
   const setJ = (part: Partial<Journal>) => patch({ journal: { ...j, ...part } });
+
+  // Treino e dieta vivem dentro dos pilares que alimentam.
+  const treinoHoje = s.treinoInicio ? sessionOn(s.treinoInicio, id) : null;
+  const proximoTreino = s.treinoInicio && !treinoHoje ? nextSessionAfter(s.treinoInicio, id) : null;
+  const treinoFeito = !!treinoHoje && day.exercicio.kind === treinoHoje.session.label && day.exercicio.minutes > 0;
+  const cardapio = mealsFor(id);
+  const cardapioTotal = dayTotal(cardapio);
 
   if (!mounted) return <Loading />;
 
@@ -165,6 +174,47 @@ export default function DiarioPage() {
           onChange={(minutes) => patch({ exercicio: { ...day.exercicio, minutes } })} />
         <input className="field mt-3" placeholder="Que atividade? (corrida, academia…)" value={day.exercicio.kind}
           onChange={(e) => patch({ exercicio: { ...day.exercicio, kind: e.target.value } })} />
+
+        <div className="mt-4 border-t pt-4" style={{ borderColor: "var(--line)" }}>
+          <div className="mb-2 flex items-baseline justify-between gap-3">
+            <span className="eyebrow">Treino do plano</span>
+            <Link href="/treino" className="btn-ghost">{s.treinoInicio ? "ver plano →" : "montar plano →"}</Link>
+          </div>
+          {treinoHoje ? (
+            <div className="flex items-center gap-3">
+              <div className="min-w-0 flex-1">
+                <div className="t-small" style={{ color: "var(--title)", fontWeight: 600 }}>
+                  {treinoHoje.session.label} · {treinoHoje.session.focus}
+                </div>
+                <div className="t-micro" style={{ color: "var(--body-2)" }}>
+                  Semana {treinoHoje.week + 1} · {treinoHoje.session.exercises.length} exercícios · {SESSION_MINUTES} min
+                </div>
+              </div>
+              <button
+                type="button"
+                className="btn shrink-0"
+                style={treinoFeito ? { background: "var(--accent)", borderColor: "var(--accent)", color: "#fffff3" } : undefined}
+                onClick={() =>
+                  patch({
+                    exercicio: treinoFeito
+                      ? { minutes: 0, kind: "" }
+                      : { minutes: SESSION_MINUTES, kind: treinoHoje.session.label },
+                  })
+                }
+              >
+                {treinoFeito ? "Feito" : "Marcar feito"}
+              </button>
+            </div>
+          ) : (
+            <p className="t-small" style={{ color: "var(--body-2)" }}>
+              {!s.treinoInicio
+                ? "Nenhum plano ativo. Quatro semanas, quatro sessões por semana."
+                : proximoTreino
+                  ? `Descanso. Próximo: ${proximoTreino.session.label}, ${formatShort(proximoTreino.date)}.`
+                  : "Plano concluído. Vale montar o próximo bloco."}
+            </p>
+          )}
+        </div>
       </Panel>
 
       <Panel
@@ -185,6 +235,25 @@ export default function DiarioPage() {
         <div className="mt-3">
           <Toggle label="Comi besteira hoje" checked={day.alimentacao.junk}
             onChange={(junk) => patch({ alimentacao: { ...day.alimentacao, junk } })} />
+        </div>
+
+        <div className="mt-4 border-t pt-4" style={{ borderColor: "var(--line)" }}>
+          <div className="mb-2 flex items-baseline justify-between gap-3">
+            <span className="eyebrow">Cardápio · {cardapio.label}</span>
+            <Link href="/dieta" className="btn-ghost">ver dieta →</Link>
+          </div>
+          <ul>
+            {cardapio.meals.map((m) => (
+              <li key={m.time} className="row flex items-baseline gap-3 py-2 first:pt-0">
+                <span className="t-micro w-24 shrink-0" style={{ color: "var(--body-3)" }}>{m.time}</span>
+                <span className="t-small min-w-0 flex-1 truncate" style={{ color: "var(--title)" }}>{m.name}</span>
+                <span className="t-micro shrink-0 tabular-nums" style={{ color: "var(--body-2)" }}>{m.kcal} kcal</span>
+              </li>
+            ))}
+          </ul>
+          <p className="t-micro mt-2 tabular-nums" style={{ color: "var(--body-3)" }}>
+            {cardapioTotal.kcal} kcal · {cardapioTotal.protein}g proteína · {cardapioTotal.carbs}g carbo · {cardapioTotal.fat}g gordura
+          </p>
         </div>
       </Panel>
 

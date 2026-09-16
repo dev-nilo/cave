@@ -444,3 +444,10 @@ export const SUBSTITUTIONS: SubGroup[] = [
     itens: ["Brócolis", "Salada verde", "Abobrinha", "Cenoura", "Couve", "Aspargos", "Legumes salteados ou no vapor"],
   },
 ];
+
+/** Cardápio do dia: o plano de 7 dias roda com a semana, segunda = Dia 1. */
+export function mealsFor(date: string): DayMeals {
+  const [y, m, d] = date.split("-").map(Number);
+  const dow = new Date(y, m - 1, d).getDay(); // 0 = domingo
+  return MEAL_DAYS[(dow + 6) % 7];
+}

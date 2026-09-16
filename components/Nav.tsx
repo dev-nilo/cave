@@ -5,8 +5,6 @@ import { usePathname } from "next/navigation";
 
 const ITEMS = [
   { href: "/", label: "Diário" },
-  { href: "/treino", label: "Treino" },
-  { href: "/dieta", label: "Dieta" },
   { href: "/semana", label: "Semana" },
   { href: "/financeiro", label: "Finanças" },
   { href: "/roda", label: "Roda" },
@@ -36,7 +34,7 @@ export default function Nav() {
               <Link
                 href={it.href}
                 aria-current={active ? "page" : undefined}
-                className="flex min-h-11 items-center justify-center rounded-full px-0.5 text-[11px] font-semibold"
+                className="flex min-h-11 items-center justify-center rounded-full text-[12px] font-semibold"
                 style={{
                   letterSpacing: "-0.24px",
                   color: active ? "var(--action-ink)" : "var(--body-2)",
