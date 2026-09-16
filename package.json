@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test": "tsc lib/game.ts lib/score.ts lib/day.ts lib/date.ts lib/types.ts --outDir .test-build --module commonjs --target es2020 --moduleResolution node --esModuleInterop --skipLibCheck && node --test tests/"
   },
   "dependencies": {
     "next": "^15.5.23",

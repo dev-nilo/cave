@@ -24,6 +24,7 @@ import {
   monthMoney,
   moneyScore,
 } from "@/lib/score";
+import { dayXp } from "@/lib/game";
 import { getDay, useMounted, useStore } from "@/lib/store";
 
 const pillar = (key: string) => PILLARS.find((p) => p.key === key)!;
@@ -64,6 +65,7 @@ export default function SemanaPage() {
       tarefas: days.reduce((a, d) => a + getDay(s, d).trabalho.tasks, 0),
       leitura: days.reduce((a, d) => a + getDay(s, d).leitura.minutes, 0),
       media: filled.length ? filled.reduce((a, d) => a + dayScore(s, d), 0) / filled.length : 0,
+      xp: days.reduce((a, d) => a + dayXp(s, d), 0),
     };
   }, [s, days]);
 
@@ -121,11 +123,14 @@ export default function SemanaPage() {
         <span className="eyebrow eyebrow-dark mb-2">Média da semana</span>
         <div className="flex items-end justify-between gap-4">
           <Stat value={String(Math.round(totals.media * 100))} unit="/ 100" color="var(--dark-ink)" />
-          <p className="t-small pb-1 text-right" style={{ color: "var(--dark-ink-2)" }}>
-            {totals.diasComRegistro} de 7 dias
-            <br />
-            registrados
-          </p>
+          <div className="pb-1 text-right">
+            <p className="t-small" style={{ color: "var(--dark-ink)" }}>
+              +{totals.xp.toLocaleString("pt-BR")} XP na semana
+            </p>
+            <p className="t-micro" style={{ color: "var(--dark-ink-2)" }}>
+              {totals.diasComRegistro} de 7 dias registrados
+            </p>
+          </div>
         </div>
       </section>
 

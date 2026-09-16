@@ -1,7 +1,7 @@
 // Service worker mínimo: app shell offline com estratégia network-first
 // para navegação e cache-first para estáticos do build.
-const CACHE = "pilares-v4";
-const SHELL = ["/", "/semana", "/financeiro", "/roda", "/ajustes", "/manifest.webmanifest"];
+const CACHE = "pilares-v5";
+const SHELL = ["/", "/semana", "/financeiro", "/roda", "/perfil", "/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(

@@ -1,20 +1,26 @@
 # Pilares
 
-PWA para acompanhar os sete pilares de um dia (e de uma semana) bom.
+Diário PWA para acompanhar os sete pilares de um dia (e de uma semana) bom,
+com missões diárias, XP, níveis e conquistas derivados do próprio histórico.
 
 | Pilar | Onde | O que é registrado |
 | --- | --- | --- |
-| 1. Sono | Hoje | hora de dormir/acordar, horas calculadas, qualidade 1–5 |
-| 2. Exercício | Hoje | minutos e atividade |
-| 3. Alimentação | Hoje | qualidade 1–5, copos de água, marcador de besteira |
-| 4. Trabalho e Estudos | Hoje | minutos de foco e tarefas concluídas |
-| 5. Leitura | Hoje | minutos e livro |
+| 1. Sono | Diário | hora de dormir/acordar, horas calculadas, qualidade 1–5 |
+| 2. Exercício | Diário | minutos e atividade |
+| 3. Alimentação | Diário | qualidade 1–5, copos de água, marcador de besteira |
+| 4. Trabalho e Estudos | Diário | minutos de foco e tarefas concluídas |
+| 5. Leitura | Diário | minutos e livro |
 | 6. Financeiro | Finanças | entradas/saídas por categoria, orçamento e meta de poupança |
 | 7. Wheel of Life | Roda | 8 áreas de 0 a 10, radar e histórico comparativo |
 
+**Diário** abre com humor e intenção da manhã, passa pelos pilares e fecha com
+reflexão, gratidão e destaque da noite. Sete missões por dia (cinco metas de
+pilar, humor e reflexão) rendem XP; o nível cresce com o acumulado.
+
 **Semana** mostra o mapa de calor 5 pilares × 7 dias (com tabela equivalente),
-o progresso de cada meta e a média da semana. **Ajustes** define as metas que
-alimentam a pontuação e faz backup/restauração em JSON.
+o progresso de cada meta e a média da semana. **Perfil** reúne nível, sequências
+por pilar, conquistas (desbloqueadas e a caminho), as metas que alimentam a
+pontuação e backup/restauração em JSON.
 
 ## Rodar
 
@@ -38,6 +44,12 @@ servir cache velho.
 - **Pontuação**: `lib/score.ts`. Cada pilar diário vale 0–1 contra a meta; a nota
   do dia é a média dos cinco. Financeiro é mensal (orçamento + poupança) e a roda
   é periódica.
+- **Gamificação**: `lib/game.ts`, uma função de entrada — `progress(state, hoje)`
+  devolve XP do dia e total, nível, missões, sequências por pilar e conquistas.
+  Nada disso é gravado: é recomputado do histórico, então mudar uma regra
+  reavalia o passado sozinho. `lib/day.ts` é a leitura pura de um dia, sem
+  React, para que `score` e `game` rodem em qualquer ambiente. `npm test` roda
+  `tests/game.test.js` só contra essa interface.
 - **Design**: tokens, tipografia (Bricolage Grotesque, auto-hospedada) e regras
   de cor em [DESIGN.md](DESIGN.md),
   derivados do sistema visual da Strider (onstrider.com). Leia antes de mexer em

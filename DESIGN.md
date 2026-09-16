@@ -196,6 +196,23 @@ Sóbrio e adulto. Sem emoji na interface, sem gradiente decorativo fora dos
 painéis-herói, sem cor comemorativa. Progresso se mostra por preenchimento e
 número. Português direto, sem exclamação.
 
+### 6.1 Gamificação sem parecer joguinho
+
+XP, nível, missões e conquistas existem para dar **ritmo** ao diário, não para
+gritar. Regras:
+
+- Recompensa aparece como **número e preenchimento** (`+83 XP`, barra do nível),
+  nunca como confete, brilho ou cor nova.
+- O único ícone é o **check** dentro do círculo — missão feita, conquista
+  desbloqueada. Nada de troféu, medalha, fogo.
+- Nome de conquista é curto, em português e descreve o feito ("Sete dias",
+  "Madrugador", "Primeira página"). Sem trocadilho, sem superlativo.
+- Conquista travada mostra **progresso**, não cadeado: a barra diz o quanto
+  falta. A caminho é mais motivador que bloqueado.
+- Sequência zera sem drama: "—" no lugar do número. Sem mensagem de derrota.
+- Tudo é derivado do histórico (`lib/game.ts`): nada de XP gravado, nada de
+  pop-up de "você subiu de nível". O nível novo simplesmente está lá amanhã.
+
 ## 7. Checklist antes de mudar cor
 
 1. Série nova? Valide pares adjacentes nos dois modos (ΔE normal ≥ 15, com

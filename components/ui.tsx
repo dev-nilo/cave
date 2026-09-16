@@ -282,6 +282,65 @@ export function Stat({
   );
 }
 
+/** Seletor segmentado com rótulos — humor, tipo de lançamento. */
+export function Segmented<T extends string | number>({
+  options,
+  value,
+  onChange,
+  color = "var(--title)",
+}: {
+  options: { value: T; label: string }[];
+  value: T | null;
+  onChange: (v: T) => void;
+  color?: string;
+}) {
+  return (
+    <div className="flex gap-1 rounded-full p-1" style={{ background: "var(--panel-2)" }} role="radiogroup">
+      {options.map((o) => {
+        const on = value === o.value;
+        return (
+          <button
+            key={String(o.value)}
+            type="button"
+            role="radio"
+            aria-checked={on}
+            onClick={() => onChange(o.value)}
+            className="min-h-10 min-w-0 flex-1 truncate rounded-full px-1 text-[13px] font-semibold"
+            style={{
+              background: on ? color : "transparent",
+              color: on ? "#fffff3" : "var(--body-2)",
+              transition: "background-color 200ms var(--ease-bounce), color 150ms ease",
+            }}
+          >
+            {o.label}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
+
+/** Marcador de missão: círculo vazio ou preenchido com um traço. */
+export function Check({ done, color = "var(--accent)" }: { done: boolean; color?: string }) {
+  return (
+    <span
+      aria-hidden
+      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border"
+      style={{
+        borderColor: done ? color : "var(--line-2)",
+        background: done ? color : "transparent",
+        transition: "background-color 200ms var(--ease-bounce)",
+      }}
+    >
+      {done && (
+        <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+          <path d="M1 4.2 3.6 6.8 9 1.2" stroke="#fffff3" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      )}
+    </span>
+  );
+}
+
 /** Cabeçalho de tela: rótulo laranja, título grande, navegação em pílulas. */
 export function PageHeader({
   eyebrow,

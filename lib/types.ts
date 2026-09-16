@@ -9,13 +9,24 @@ export type PillarKey =
   | "financeiro"
   | "roda";
 
+/** A parte escrita do dia — o diário propriamente dito. */
+export type Journal = {
+  mood: number; // 0 (não registrado) ou 1–5
+  intention: string; // manhã: o que importa hoje
+  reflection: string; // noite: como foi
+  gratitude: string; // uma linha
+  highlight: string; // o melhor momento
+};
+
 export type Day = {
   sono: { bed: string; wake: string; quality: number }; // "23:30", "07:00", 0-5
   exercicio: { minutes: number; kind: string };
   alimentacao: { quality: number; water: number; junk: boolean }; // 0-5, copos
   trabalho: { focus: number; tasks: number }; // minutos de foco, tarefas concluídas
   leitura: { minutes: number; book: string };
-  note: string;
+  journal: Journal;
+  /** @deprecated migrado para journal.reflection na leitura; mantido só para dados antigos */
+  note?: string;
 };
 
 export type TxKind = "saida" | "entrada";
@@ -79,13 +90,21 @@ export const DEFAULT_GOALS: Goals = {
   poupancaMensal: 1000,
 };
 
+export const EMPTY_JOURNAL: Journal = {
+  mood: 0,
+  intention: "",
+  reflection: "",
+  gratitude: "",
+  highlight: "",
+};
+
 export const EMPTY_DAY: Day = {
   sono: { bed: "", wake: "", quality: 0 },
   exercicio: { minutes: 0, kind: "" },
   alimentacao: { quality: 0, water: 0, junk: false },
   trabalho: { focus: 0, tasks: 0 },
   leitura: { minutes: 0, book: "" },
-  note: "",
+  journal: EMPTY_JOURNAL,
 };
 
 export const CATEGORIES = [

@@ -1,5 +1,5 @@
 import { monthId, sleepHours } from "./date";
-import { getDay } from "./store";
+import { getDay } from "./day";
 import type { DayId, Goals, PillarKey, State } from "./types";
 
 export const PILLARS: {
@@ -68,6 +68,11 @@ export function hasData(s: State, id: DayId): boolean {
     !!d.trabalho?.focus ||
     !!d.trabalho?.tasks ||
     !!d.leitura?.minutes ||
+    !!d.journal?.mood ||
+    !!d.journal?.intention ||
+    !!d.journal?.reflection ||
+    !!d.journal?.gratitude ||
+    !!d.journal?.highlight ||
     !!d.note
   );
 }

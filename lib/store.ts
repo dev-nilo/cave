@@ -1,13 +1,10 @@
 "use client";
 
 import { useCallback, useSyncExternalStore } from "react";
-import {
-  DEFAULT_GOALS,
-  EMPTY_DAY,
-  type Day,
-  type DayId,
-  type State,
-} from "./types";
+import { getDay } from "./day";
+import { DEFAULT_GOALS, type Day, type DayId, type State } from "./types";
+
+export { getDay };
 
 const KEY = "pilares.v1";
 
@@ -103,19 +100,6 @@ export function useMounted(): boolean {
     () => true,
     () => false,
   );
-}
-
-export function getDay(s: State, id: DayId): Day {
-  const d = s.days[id];
-  if (!d) return EMPTY_DAY;
-  return {
-    sono: { ...EMPTY_DAY.sono, ...d.sono },
-    exercicio: { ...EMPTY_DAY.exercicio, ...d.exercicio },
-    alimentacao: { ...EMPTY_DAY.alimentacao, ...d.alimentacao },
-    trabalho: { ...EMPTY_DAY.trabalho, ...d.trabalho },
-    leitura: { ...EMPTY_DAY.leitura, ...d.leitura },
-    note: d.note ?? "",
-  };
 }
 
 /** Editor do dia: aplica um patch parcial e persiste. */
