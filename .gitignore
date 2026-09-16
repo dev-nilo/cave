@@ -6,3 +6,5 @@ tsconfig.tsbuildinfo
 .DS_Store
 .env*.local
 .test-build
+.vercel
+.env*
