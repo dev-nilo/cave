@@ -1,5 +1,7 @@
 # Pilares
 
+> **In English:** Pilares is an offline-capable PWA journal for tracking seven pillars of a good day and week: sleep, exercise, food, work and study, reading, finances, and a Wheel of Life. Daily missions give XP, levels, streaks and achievements, all recomputed from your own history, and a weekly heatmap shows progress per pillar. Data stays in the browser, with no backend. Built with Next.js, React, TypeScript and hand-written SVG charts. **Live:** [cave-kappa-ten.vercel.app](https://cave-kappa-ten.vercel.app)
+
 Diário PWA para acompanhar os sete pilares de um dia (e de uma semana) bom,
 com missões diárias, XP, níveis e conquistas derivados do próprio histórico.
 
